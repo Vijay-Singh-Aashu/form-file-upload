@@ -8,8 +8,8 @@ import com.excellence.usernamelogin.entity.User;
 public class UserService {
 
 	public boolean authenticateUser(User user) {
-		String validUsername = "user123";
-		String validPassword = "password123";
-		return validUsername.equals(user.getUsername()) && validPassword.equals(user.getPassword());
+		String validUsername = "vijay";
+		String validPassword = "vijay@123";
+		return validUsername.equals(user.getName()) && validPassword.equals(user.getPass());
 	}
 }
