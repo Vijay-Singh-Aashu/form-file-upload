@@ -33,28 +33,31 @@ public class FileServiceImpl implements FileService {
 	}
 
 	@Override
-	public void processAndSaveData(MultipartFile file) {
-		try {
-			List<Bank> banks = csvToBanks(file.getInputStream());
-			bankRepository.saveAll(banks);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
+	public void processAndSaveData(MultipartFile file, String accountNumber, String bankName) {
+	    try {
+	        List<Bank> banks = csvToBanks(file.getInputStream(), accountNumber, bankName);
+	        bankRepository.saveAll(banks);
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	    }
 	}
 
-	private List<Bank> csvToBanks(InputStream inputStream) {
+	private List<Bank> csvToBanks(InputStream inputStream, String accountNumber, String bankName) {
 		try (BufferedReader filereReader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
 				CSVParser csvParser = new CSVParser(filereReader,
 						CSVFormat.DEFAULT.withFirstRecordAsHeader().withIgnoreHeaderCase().withTrim());) {
 			List<Bank> banks = new ArrayList<Bank>();
 			List<CSVRecord> records = csvParser.getRecords();
 			for (CSVRecord csvRecord : records) {
-				Bank bank = new Bank(csvRecord.get("Date"), csvRecord.get("Narration"), csvRecord.get("Value Date"),
-						csvRecord.get("Debit Amount"), csvRecord.get("Credit Amount"), csvRecord.get("Chq/Ref Number"),
-						csvRecord.get("Closing Balance"));
-				banks.add(bank);
+				Bank bank = new Bank();
+	            bank.setAccountNumber(accountNumber); // Set the account number
+	            bank.setBankName(bankName); // Set the bank name
+	            bank.setNaration(csvRecord.get("Narration"));
+	            bank.setValueDate(csvRecord.get("Value Date"));
+	            bank.setDebitAmount(csvRecord.get("Debit Amount"));
+	            bank.setCheque(csvRecord.get("Chq/Ref Number"));
+	            bank.setClosingBalance(csvRecord.get("Closing Balance"));
+	            banks.add(bank);
 			}
 			return banks;
 
@@ -64,4 +67,10 @@ public class FileServiceImpl implements FileService {
 		}
 		return null;
 	}
+	
+	public List<Bank> getAllInvoices() {
+		return this.bankRepository.findAll();
+	}
+
+
 }

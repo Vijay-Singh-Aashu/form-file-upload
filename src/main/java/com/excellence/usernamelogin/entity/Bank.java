@@ -19,10 +19,10 @@ public class Bank {
 	private long id;
 
 	private String accountNumber;
-	
+
 	private String bankName;
-	
-	private String date;
+
+//	private String date;
 
 	private String naration;
 
@@ -30,21 +30,20 @@ public class Bank {
 
 	private String debitAmount;
 
-	private String creditAmount;
+//	private String creditAmount;
 
 	private String cheque;
 
 	private String closingBalance;
 
-	public Bank(String date, String naration, String valuedate, String debitamount, String creditamount, String cheque,
-			String closingbalance) {
+	public Bank(String naration, String valuedate, String debitamount, String cheque, String closingbalance) {
 		super();
 
-		this.date = date;
+//		this.date = date;
 		this.naration = naration;
 		this.valueDate = valuedate;
 		this.debitAmount = debitamount;
-		this.creditAmount = creditamount;
+//		this.creditAmount = creditamount;
 		this.cheque = cheque;
 		this.closingBalance = closingbalance;
 	}

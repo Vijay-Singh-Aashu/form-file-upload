@@ -13,7 +13,7 @@ import com.excellence.usernamelogin.entity.User;
 import com.excellence.usernamelogin.response.ResponseMessage;
 import com.excellence.usernamelogin.service.UserService;
 
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/v1/")
 public class LoginController {
